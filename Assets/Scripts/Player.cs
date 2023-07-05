@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
     float coolDown = .5f;
 
+    [SerializeField] private ObjectPool objectPool = null;
+
     private void Awake()
     {
         cam = Camera.main;
@@ -33,7 +35,6 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) && transform.position.x>-width)
         {
-            Debug.Log("sað");
             transform.Translate(Vector2.left * Time.deltaTime * speed);
         }
         if (Input.GetKey(KeyCode.D) && transform.position.x < width)
@@ -55,9 +56,10 @@ public class Player : MonoBehaviour
 
         isShooting = true;
 
-        Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        // Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject obj = objectPool.GetPooledObject();
+        obj.transform.position = transform.position;
         yield return new WaitForSeconds(coolDown);
-
         isShooting = false;
     }
 }
