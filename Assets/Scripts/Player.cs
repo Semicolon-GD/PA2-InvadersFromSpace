@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -18,13 +19,20 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        cam = Camera.main;
-        width = ((1 / (cam.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f)/2)-.25f);
+        CalculateWidth();
     }
     // Start is called before the first frame update
     void Start()
     {
         //Debug.Log(width);
+    } 
+
+
+    public void CalculateWidth()
+    {
+        cam = Camera.main;
+        width = ((1 / (cam.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f) / 2) - .25f);
+        
     }
 
     // Update is called once per frame

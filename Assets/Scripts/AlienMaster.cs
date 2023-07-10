@@ -7,8 +7,10 @@ public class AlienMaster : MonoBehaviour
     public GameObject bulletPrefab;
     private Vector3 hMoveDistance = new Vector3(0.05f, 0, 0);
     private Vector3 vMoveDistance = new Vector3(0, 0.15f, 0);
-    private const float MAX_LEFT = -2;
-    private const float MAX_RIGHT = 2;
+    [SerializeField] Player _playerSC;
+    private float width;
+    private float MAX_LEFT;
+    private float MAX_RIGHT;
     private const float MAX_MOVE_SPEED = 0.02f;
     public static List<GameObject> allAliens = new List<GameObject>();
     private bool moveingRight;
@@ -18,9 +20,13 @@ public class AlienMaster : MonoBehaviour
 
     //Player scripti gibi ekran çözünürlüðüne uygun MAX LEFT RIGHT güncellemesi yapýlacak
 
+ 
 
     void Start()
     {
+        width = _playerSC.width;
+        MAX_LEFT = -width + 0.15f ;
+        MAX_RIGHT = width-0.15f;
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Alien"))
         {
             allAliens.Add(go);
