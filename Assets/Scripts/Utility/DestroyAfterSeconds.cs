@@ -5,18 +5,17 @@ using UnityEngine;
 public class DestroyAfterSeconds : MonoBehaviour
 {
 
-    public float seconds;
-   
+    public float bulletDeactivePos;
     void Start()
     {
-      //  Destroy(gameObject, seconds);
+        //Destroy(gameObject, seconds);
     }
 
     private void Update()
     {
-        if (transform.position.y>7f)
+        if (transform.position.y > bulletDeactivePos || transform.position.y < -bulletDeactivePos)
         {
-             gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
