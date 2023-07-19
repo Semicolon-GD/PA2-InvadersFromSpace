@@ -140,6 +140,7 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: Health_05
@@ -270,6 +271,9 @@ TextureImporter:
 =======
     sprites: []
 >>>>>>> parent of f006277 (Made UI changes and created script for it)
+=======
+    sprites: []
+>>>>>>> parent of f006277 (Made UI changes and created script for it)
     outline: []
     physicsShape: []
     bones: []
@@ -281,6 +285,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
 <<<<<<< HEAD
+<<<<<<< HEAD
     nameFileIdTable:
       Health_03: 840476984
       Health_00: -245282444
@@ -288,6 +293,9 @@ TextureImporter:
       Health_05: 576337341
       Health_01: 1338414003
       Health_04: 461467167
+=======
+    nameFileIdTable: {}
+>>>>>>> parent of f006277 (Made UI changes and created script for it)
 =======
     nameFileIdTable: {}
 >>>>>>> parent of f006277 (Made UI changes and created script for it)
