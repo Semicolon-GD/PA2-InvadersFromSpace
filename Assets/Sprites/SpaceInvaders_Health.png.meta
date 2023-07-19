@@ -139,6 +139,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
+<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: Health_05
@@ -266,6 +267,9 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+=======
+    sprites: []
+>>>>>>> parent of f006277 (Made UI changes and created script for it)
     outline: []
     physicsShape: []
     bones: []
@@ -276,6 +280,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+<<<<<<< HEAD
     nameFileIdTable:
       Health_03: 840476984
       Health_00: -245282444
@@ -283,6 +288,9 @@ TextureImporter:
       Health_05: 576337341
       Health_01: 1338414003
       Health_04: 461467167
+=======
+    nameFileIdTable: {}
+>>>>>>> parent of f006277 (Made UI changes and created script for it)
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
