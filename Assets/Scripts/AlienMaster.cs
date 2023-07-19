@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class AlienMaster : MonoBehaviour
 {
     [SerializeField] private ObjectPool objectPool = null;
-    [SerializeField] private ObjectPool motherShipPool = null;
+    [SerializeField] private ObjectPool motherShipObjectPool = null;
     public GameObject bulletPrefab;
     [SerializeField] Player _playerSC;
     private float width;
@@ -24,15 +22,15 @@ public class AlienMaster : MonoBehaviour
     private const float ShootTime = 3f;
 
     public GameObject motherShipPrefab;
-    private Vector3 motherShipSpawnPos = new Vector3(6,5.3f,0);
-    private float motherShipTimer = 1f;
-    private const float MOTHERSHIP_MIN = 15f;
+    private Vector3 motherShipSpawnPos = new Vector3(6,5.66f, 0);
+    private float motherShipTimer = 60f;
+    private const float MOTHERSHIP_MIN = 16f;
     private const float MOTHERSHIP_MAX = 60f;
-
+    
     void Start()
     {
         width = _playerSC.width - 0.15f;
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Alien"))
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Alien"))
         {
             allAliens.Add(go);
         }
@@ -48,22 +46,15 @@ public class AlienMaster : MonoBehaviour
         {
             Shoot();
         }
-        if (motherShipTimer<=0)
+        if (motherShipTimer <= 0) 
         {
             SpawnMotherShip();
         }
         moveTimer -= Time.deltaTime;
-        shootTimer -= Time.deltaTime;
+        shootTimer-= Time.deltaTime;
         motherShipTimer -= Time.deltaTime;
     }
 
-
-    private void SpawnMotherShip()
-    {
-        GameObject obj = motherShipPool.GetPooledObject();
-        obj.transform.position = motherShipSpawnPos;
-        motherShipTimer = Random.Range(MOTHERSHIP_MIN, MOTHERSHIP_MAX);
-    }
     private void MoveEnemies()
     {
         int hitMax = 0;
@@ -91,6 +82,13 @@ public class AlienMaster : MonoBehaviour
             moveingRight = !moveingRight;
         }
         moveTimer = GetMovedSpeed();
+    }
+
+    private void SpawnMotherShip()
+    {
+        GameObject obj = motherShipObjectPool.GetPooledObject();
+        obj.transform.position = motherShipSpawnPos;
+        motherShipTimer = Random.Range(MOTHERSHIP_MIN,MOTHERSHIP_MAX);
     }
 
     private void Shoot()

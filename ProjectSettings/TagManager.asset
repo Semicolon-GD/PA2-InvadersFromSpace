@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Alien
   - EnemyBullet
-  - FriendlyBullet
+  - FrindlyBullet
   layers:
   - Default
   - TransparentFX

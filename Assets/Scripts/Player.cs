@@ -1,15 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab;
 
     Camera cam;
-    [HideInInspector]public float width;
+    public float width;
     //private float speed = 3f;
 
     bool isShooting;
@@ -17,21 +15,23 @@ public class Player : MonoBehaviour
     [SerializeField] private ObjectPool objectPool = null;
 
     public ShipStats shipStats;
-
     private Vector2 offScreenPos = new Vector2(0, -20);
     private Vector2 startPos = new Vector2(0, -6);
+    private float dirx;
 
     private void Awake()
     {
         cam = Camera.main;
-        width = ((1 / (cam.WorldToViewportPoint(new Vector3(1, 1, 0)).x - .5f) / 2) - 0.25f);
+        width = ((1 /(cam.WorldToViewportPoint(new Vector3(1,1,0)).x - .5f) / 2) - 0.25f);
     }
 
     void Start()
     {
-        shipStats.currentHealt = shipStats.maxHealth;
+        shipStats.currentHealth = shipStats.maxHealth;
         shipStats.currentLifes = shipStats.maxLifes;
         transform.position = startPos;
+        UIManager.UpdatehealtBar(shipStats.currentHealth);
+        UIManager.UpdateLives(shipStats.currentLifes);
     }
 
 
@@ -51,45 +51,26 @@ public class Player : MonoBehaviour
             StartCoroutine(Shoot());
         }
 #endif
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        dirx = Input.acceleration.x;
+        //Debug.Log(dirx);
+        if (dirx <= -0.1f && transform.position.x > -width)
         {
-            collision.gameObject.SetActive(false);
-            TakeDamage();
+            transform.Translate(Vector2.left * Time.deltaTime * shipStats.shipSpeed);
         }
-    }
-
-    public void TakeDamage()
-    {
-        shipStats.currentHealt--;
-        Debug.Log(shipStats.currentHealt);
-        if (shipStats.currentHealt<=0)
+        if (dirx >= 0.1f && transform.position.x < width)
         {
-            shipStats.currentLifes--;
-            if (shipStats.currentLifes<=0)
-            {
-                Debug.Log("GameOver");
-            }
-            else
-            {
-                StartCoroutine(Respawn());
-            }
+            transform.Translate(Vector2.right * Time.deltaTime * shipStats.shipSpeed);
         }
+
     }
 
-    private IEnumerator Respawn()
+    public void ShootButton()
     {
-        transform.position = offScreenPos;
-
-        yield return new WaitForSeconds(2f);
-
-        shipStats.currentHealt = shipStats.maxHealth;
-
-        transform.position = startPos;
-
+        if (!isShooting)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     private IEnumerator Shoot()
@@ -101,7 +82,52 @@ public class Player : MonoBehaviour
         obj.transform.position = gameObject.transform.position;
         yield return new WaitForSeconds(shipStats.fireRate);
 
-        isShooting = false;
+        isShooting= false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Debug.Log("Player Hit!");
+            collision.gameObject.SetActive(false);
+            TakeDamage();
+        }
+    }
+
+    private IEnumerator Respawn()
+    {
+        transform.position = offScreenPos;
+
+        yield return new WaitForSeconds(2);
+
+        shipStats.currentHealth = shipStats.maxHealth;
+
+        transform.position = startPos;
+        UIManager.UpdatehealtBar(shipStats.currentHealth);
+    }
+
+
+    public void TakeDamage()
+    {
+        shipStats.currentHealth--;
+        UIManager.UpdatehealtBar(shipStats.currentHealth);
+
+        if (shipStats.currentHealth <= 0)
+        {
+            shipStats.currentLifes--;
+            UIManager.UpdateLives(shipStats.currentLifes);
+
+            if (shipStats.currentLifes <= 0)
+            {
+                Debug.Log("Game Over");
+            }
+            else
+            {
+                //Debug.Log("Respawn");
+                StartCoroutine(Respawn());
+            }
+        }
     }
 
 }

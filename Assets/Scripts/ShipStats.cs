@@ -7,11 +7,10 @@ public class ShipStats : MonoBehaviour
 {
     [Range(1, 5)]
     public int maxHealth;
-    [HideInInspector] public int currentHealt;
-    [HideInInspector] public int maxLifes=3;
-    [HideInInspector] public int currentLifes;
+    [HideInInspector] public int currentHealth;
+    [HideInInspector] public int maxLifes = 3;
+    [HideInInspector] public int currentLifes = 3;
 
     public float shipSpeed;
     public float fireRate;
-
 }

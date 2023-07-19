@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DestroyAfterSeconds : MonoBehaviour
 {
-
     public float bulletDeactivePos;
     void Start()
     {
@@ -18,5 +17,4 @@ public class DestroyAfterSeconds : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
 }
